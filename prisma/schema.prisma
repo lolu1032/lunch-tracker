@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model LunchRecord {
+  id        Int      @id @default(autoincrement())
+  date      DateTime @db.Date
+  amount    Int
+  memo      String?  @db.VarChar(200)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@map("lunch_records")
+}
+
+model Settings {
+  id            Int @id @default(autoincrement())
+  monthlyBudget Int @default(200000) @map("monthly_budget")
+
+  @@map("settings")
+}
